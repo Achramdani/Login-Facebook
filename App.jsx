@@ -1,6 +1,9 @@
-import { StyleSheet, Text, View, Image , TextInput } from 'react-native'
+import { StyleSheet, Text, View, Image , TextInput, Button } from 'react-native'
 import React ,{ useState, useEffect} from 'react'
-const App = () => {
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const HomeScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [text, setText] = useState('');
   
@@ -30,12 +33,39 @@ const App = () => {
           backgroundColor: '#FFFFFF',
           marginHorizontal: 20, 
           borderRadius: 15,
+          marginBottom: 20
       }}
         placeholder="Password"
         onChangeText={(newPassword) => setPassword(newPassword)}
         value={password}
       />
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate('About')}
+      />
     </View>
+    
+  );
+}
+
+const About = () => {
+  return (
+    <View> 
+      <Text>About</Text>
+    </View>
+  )
+}
+const Stack = createNativeStackNavigator();
+const App = () => {
+  return (
+    
+      <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="About" component={About} />
+      </Stack.Navigator>
+      </NavigationContainer>
+    
   );
 };
 

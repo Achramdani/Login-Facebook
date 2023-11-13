@@ -1,70 +1,51 @@
-import { StyleSheet, Text, View, Image , TextInput, Button } from 'react-native'
-import React ,{ useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import Login from './src/components/login';
 import About from './src/components/About';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Detail from './src/components/Detail';
 
-const HomeScreen = ({ navigation }) => {
-  const [password, setPassword] = useState('');
-  const [text, setText] = useState('');
-  
-  return (
-    <View style={{flex: 1, backgroundColor: '#dbe4f3'}}>
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <Image
-         source={require('./src/images/facebook.png')} 
-         style={{width: 100, height: 100, marginBottom:20,marginTop:50}}
-        />
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>FACEBOOK</Text>
-        <Text style={{marginTop: 10, fontWeight: 'bold'}}>Login</Text>
-      </View>
-      <TextInput
-        style={{
-          backgroundColor: '#FFFFFF',
-          marginHorizontal: 20, 
-          borderRadius: 15,
-          marginBottom:10,
-      }}
-        placeholder="Email"
-        onChangeText={(newText) => setText(newText)}
-        value={text}
-      />
-      <TextInput
-        style={{
-          backgroundColor: '#FFFFFF',
-          marginHorizontal: 20, 
-          borderRadius: 15,
-          marginBottom: 20
-      }}
-        placeholder="Password"
-        onChangeText={(newPassword) => setPassword(newPassword)}
-        value={password}
-      />
-      <Button
-        title="Login"
-        onPress={() => navigation.navigate('About')}
-      />
-    </View>
-    
-  );
-}
+const Tab = createMaterialTopTabNavigator();
 
 const Stack = createNativeStackNavigator();
-const App = () => {
+
+const HomeStack = () => {
   return (
-    
-      <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} options={{
-          headerShown:false
-        }} />
-        <Stack.Screen name="About" component={About} options={{
-          headerShown:false
-        }}  />
-      </Stack.Navigator>
-      </NavigationContainer>
+    <HomeStack.Navigator initialRouteName={userIsLoggedIn ? 'Main' : 'Login'} screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Login" component={Login} />
+    <Stack.Screen name="About" component={About} />
+  </HomeStack.Navigator>
     
   );
 };
 
-export default App
+const App = () => {
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Gantilah logika ini sesuai dengan kondisi login yang sesungguhnya
+    // Contoh: Cek apakah ada token atau sesi yang sudah disimpan
+    const checkLoginStatus = async () => {
+      // Simulasi: Menggunakan setTimeout untuk menunjukkan proses cek login
+      setTimeout(() => {
+        setUserIsLoggedIn(true); // Ganti dengan logika autentikasi yang sesungguhnya
+      }, 1000);
+    };
+
+    checkLoginStatus();
+  }, []);
+
+  return (
+    <NavigationContainer screenOptions={{ headerShown: false }}>
+      <Tab.Navigator>
+      <Tab.Screen name="Login" component={Login} />
+      <Tab.Screen name="About" component={About} />
+      <Tab.Screen name="Detail" component={Detail} />
+    </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;

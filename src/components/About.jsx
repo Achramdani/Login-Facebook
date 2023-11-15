@@ -3,12 +3,16 @@ import React from 'react'
 
 const About = () => {
   return (
-    <View>
-      <Text>About</Text>
+    <View style={styles.container}>
+      <View style={{backgroundColor:'white'}}></View>
     </View>
   )
 }
 
 export default About
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex:1
+  }
+})

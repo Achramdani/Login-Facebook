@@ -12,7 +12,7 @@ const Login = ({ navigation }) => {
 
     if (isAuthenticated) {
       // Jika login berhasil, navigasi ke layar 'About'
-      navigation.navigate('About');
+      navigation.navigate('Home');
     } else {
       // Jika login gagal, tampilkan pesan atau lakukan tindakan lainnya
       alert('Login failed. Please check your credentials.');

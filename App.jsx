@@ -6,6 +6,8 @@ import Login from './src/components/login';
 import About from './src/components/About';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Detail from './src/components/Detail';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -40,9 +42,27 @@ const App = () => {
   return (
     <NavigationContainer screenOptions={{ headerShown: false }}>
       <Tab.Navigator>
-      <Tab.Screen name="Login" component={Login} />
-      <Tab.Screen name="About" component={About} />
-      <Tab.Screen name="Detail" component={Detail} />
+      <Tab.Screen name="Login" component={Login} 
+      options={{
+        
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons name="login"  size={24} />
+          ),
+      }}/>
+      <Tab.Screen name="Home" component={About} 
+      options={{
+        
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons name="shield-home"  size={24} />
+          ),
+      }}/>
+      <Tab.Screen name="Detail" component={Detail}
+      options={{
+        
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons name="account-details-outline"  size={24} />
+          ),
+      }}/>
     </Tab.Navigator>
     </NavigationContainer>
   );
